@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Track your fitness progress and access professional workout programs with FitTrack Pro">
+    <meta name="keywords" content="workout tracking, fitness progress, exercise programs, bodybuilding">
+    <meta name="author" content="Fakhoury Elias Nassif">
+    <meta name="theme-color" content="#FF6B6B">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Progress & Workouts - FitTrack Pro">
+    <meta property="og:description" content="Track your fitness progress and access professional workout programs">
+    <meta property="og:type" content="website">
+    
+    <title>Progress & Workouts - FitTrack Pro</title>
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="spinner-container" id="loadingSpinner" role="status" aria-label="Loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation Bar (Sticky) -->
+    <nav class="navbar navbar-expand-lg navbar-dark" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a class="navbar-brand" href="index.html" aria-label="FitTrack Pro Home">
+                <i class="fas fa-dumbbell" aria-hidden="true"></i> FitTrack Pro
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home" aria-hidden="true"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="progress.html" aria-current="page">
+                            <i class="fas fa-chart-line" aria-hidden="true"></i> Progress
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="nutrition.html">
+                            <i class="fas fa-utensils" aria-hidden="true"></i> Nutrition
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light ms-2" id="darkModeToggle" aria-label="Toggle dark mode" onclick="FitnessTrackerApp.toggleDarkModeStatic()">
+                            <i class="fas fa-moon" aria-hidden="true"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Page Header -->
+        <header class="page-header">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Progress & Workouts</li>
+                    </ol>
+                </nav>
+                <h1 class="display-4 animate-title">Progress & Workouts</h1>
+                <p class="lead animate-subtitle">Track your journey and access professional training programs</p>
+                <p class="last-updated">Last updated: <time id="lastUpdated" datetime=""></time></p>
+            </div>
+        </header>
+
+        <!-- Main Content Container -->
+        <div class="container my-5">
+            <!-- Tabs Navigation -->
+            <ul class="nav nav-tabs custom-tabs mb-4" id="progressTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="timeline-tab" data-bs-toggle="tab" data-bs-target="#timeline" type="button" role="tab" aria-controls="timeline" aria-selected="true">
+                        <i class="fas fa-timeline" aria-hidden="true"></i> Timeline
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="charts-tab" data-bs-toggle="tab" data-bs-target="#charts" type="button" role="tab" aria-controls="charts" aria-selected="false">
+                        <i class="fas fa-chart-area" aria-hidden="true"></i> Charts
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="workouts-tab" data-bs-toggle="tab" data-bs-target="#workouts" type="button" role="tab" aria-controls="workouts" aria-selected="false">
+                        <i class="fas fa-dumbbell" aria-hidden="true"></i> Workouts
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="progressTabContent">
+                <!-- Timeline Tab -->
+                <div class="tab-pane fade show active" id="timeline" role="tabpanel" aria-labelledby="timeline-tab">
+                    <section class="timeline-section" aria-label="Fitness journey timeline">
+                        <h2 class="text-center mb-5">Your Fitness Journey</h2>
+                        <!-- CUSTOM REQUIREMENT: Timeline using Flexbox -->
+                        <div class="timeline" id="progressTimeline" role="list">
+                            <!-- Timeline items will be dynamically loaded here -->
+                        </div>
+                        <div class="text-center mt-5">
+                            <button class="btn btn-primary" onclick="timelineManager.addCustomMilestone()" aria-label="Add new milestone to timeline">
+                                <i class="fas fa-plus" aria-hidden="true"></i> Add Milestone
+                            </button>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Charts Tab -->
+                <div class="tab-pane fade" id="charts" role="tabpanel" aria-labelledby="charts-tab">
+                    <section aria-label="Progress charts">
+                        <div class="chart-container">
+                            <h3 class="mb-4">Progress Overview</h3>
+                            <canvas id="progressChart" width="400" height="200" role="img" aria-label="Progress overview chart"></canvas>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-md-6">
+                                <div class="chart-container">
+                                    <h4>Body Composition</h4>
+                                    <canvas id="bodyCompChart" width="400" height="200" role="img" aria-label="Body composition chart"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="chart-container">
+                                    <h4>Strength Progress</h4>
+                                    <canvas id="strengthChart" width="400" height="200" role="img" aria-label="Strength progress chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Workouts Tab -->
+                <div class="tab-pane fade" id="workouts" role="tabpanel" aria-labelledby="workouts-tab">
+                    <section aria-label="Workout programs">
+                        <!-- Filter Section -->
+                        <div class="filter-section mb-4">
+                            <h4 class="mb-3">Filter by Muscle Group</h4>
+                            <div class="d-flex flex-wrap gap-2" role="group" aria-label="Muscle group filters">
+                                <button class="btn-filter active" onclick="workoutPage.filterByMuscle('all')" aria-pressed="true">
+                                    <i class="fas fa-th" aria-hidden="true"></i> All
+                                </button>
+                                <button class="btn-filter" onclick="workoutPage.filterByMuscle('chest')" aria-pressed="false">
+                                    <i class="fas fa-heart" aria-hidden="true"></i> Chest
+                                </button>
+                                <button class="btn-filter" onclick="workoutPage.filterByMuscle('back')" aria-pressed="false">
+                                    <i class="fas fa-arrow-left" aria-hidden="true"></i> Back
+                                </button>
+                                <button class="btn-filter" onclick="workoutPage.filterByMuscle('shoulders')" aria-pressed="false">
+                                    <i class="fas fa-angle-double-up" aria-hidden="true"></i> Shoulders
+                                </button>
+                                <button class="btn-filter" onclick="workoutPage.filterByMuscle('arms')" aria-pressed="false">
+                                    <i class="fas fa-hand-rock" aria-hidden="true"></i> Arms
+                                </button>
+                                <button class="btn-filter" onclick="workoutPage.filterByMuscle('legs')" aria-pressed="false">
+                                    <i class="fas fa-shoe-prints" aria-hidden="true"></i> Legs
+                                </button>
+                                <button class="btn-filter" onclick="workoutPage.filterByMuscle('core')" aria-pressed="false">
+                                    <i class="fas fa-circle" aria-hidden="true"></i> Core
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Workout Programs -->
+                        <div class="row" id="workoutsList" role="list">
+                            <!-- Workouts will be dynamically loaded here -->
+                        </div>
+
+                        <!-- Add Custom Workout -->
+                        <div class="text-center mt-4">
+                            <button class="btn btn-secondary" onclick="workoutPage.createCustomWorkout()" aria-label="Create new custom workout">
+                                <i class="fas fa-plus" aria-hidden="true"></i> Create Custom Workout
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5><i class="fas fa-dumbbell" aria-hidden="true"></i> FitTrack Pro</h5>
+                    <p>Your ultimate companion for bodybuilding success</p>
+                    <div class="social-links" role="navigation" aria-label="Social media links">
+                        <a href="#" aria-label="Facebook" rel="noopener noreferrer"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="Twitter" rel="noopener noreferrer"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="Instagram" rel="noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="YouTube" rel="noopener noreferrer"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <nav aria-label="Footer navigation">
+                        <ul class="list-unstyled">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="progress.html">Progress Tracking</a></li>
+                            <li><a href="nutrition.html">Nutrition Planning</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Info</h5>
+                    <address>
+                        <p><i class="fas fa-user" aria-hidden="true"></i> Fakhoury Elias Nassif</p>
+                        <p><i class="fas fa-university" aria-hidden="true"></i> Lebanese University - Faculty of Engineering</p>
+                        <p><i class="fas fa-calendar" aria-hidden="true"></i> Due: July 1, 2025</p>
+                    </address>
+                </div>
+            </div>
+            <hr class="mt-4">
+            <div class="text-center">
+                <p>&copy; 2025 FitTrack Pro. All rights reserved. | Full Stack Development Project</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" aria-live="polite" aria-atomic="true">
+        <div id="liveToast" class="toast" role="alert">
+            <div class="toast-header">
+                <i class="fas fa-bell me-2" aria-hidden="true"></i>
+                <strong class="me-auto">FitTrack Pro</strong>
+                <small>Just now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <!-- Toast message will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/app.js" defer></script>
+    <script src="js/exerciseManager.js" defer></script>
+</body>
+</html>

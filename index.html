@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FitTrack Pro - Professional fitness tracking for serious bodybuilders. Track workouts, nutrition, and progress.">
+    <meta name="keywords" content="fitness, bodybuilding, workout tracker, nutrition planner, progress tracking">
+    <meta name="author" content="Fakhoury Elias Nassif">
+    <meta name="theme-color" content="#FF6B6B">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="FitTrack Pro - Bodybuilder's Ultimate Companion">
+    <meta property="og:description" content="Professional fitness tracking for serious bodybuilders">
+    <meta property="og:type" content="website">
+    
+    <title>FitTrack Pro - Bodybuilder's Ultimate Companion</title>
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="spinner-container" id="loadingSpinner" role="status" aria-label="Loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation Bar (Sticky) -->
+    <nav class="navbar navbar-expand-lg navbar-dark" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a class="navbar-brand" href="index.html" aria-label="FitTrack Pro Home">
+                <i class="fas fa-dumbbell" aria-hidden="true"></i> FitTrack Pro
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html" aria-current="page">
+                            <i class="fas fa-home" aria-hidden="true"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="progress.html">
+                            <i class="fas fa-chart-line" aria-hidden="true"></i> Progress
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="nutrition.html">
+                            <i class="fas fa-utensils" aria-hidden="true"></i> Nutrition
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light ms-2" id="darkModeToggle" aria-label="Toggle dark mode" onclick="FitnessTrackerApp.toggleDarkModeStatic()">
+                            <i class="fas fa-moon" aria-hidden="true"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero" id="home" aria-label="Hero section">
+            <div class="hero-content">
+                <h1 class="display-1 fw-bold mb-4 animate-title">Transform Your Body</h1>
+                <p class="lead mb-5 animate-subtitle">Professional fitness tracking for serious bodybuilders</p>
+                <div class="container">
+                    <div class="row justify-content-center g-4">
+                        <!-- Bulking Mode Card -->
+                        <div class="col-md-4">
+                            <article class="mode-card transform-3d-parent" onclick="app.selectMode('bulking')" role="button" tabindex="0" aria-label="Select bulking mode">
+                                <div class="transform-3d-item">
+                                    <div class="card-front">
+                                        <i class="fas fa-arrow-trend-up fa-3x mb-3 flip-icon" aria-hidden="true"></i>
+                                        <h3>Bulking</h3>
+                                        <p>Build muscle mass with structured programs and nutrition</p>
+                                    </div>
+                                    <div class="card-back" aria-hidden="true">
+                                        <h4 class="title">Bulking Mode</h4>
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> +500 calorie surplus</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> High volume training</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> 2.2g protein/kg</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <!-- Maintenance Mode Card -->
+                        <div class="col-md-4">
+                            <article class="mode-card transform-3d-parent" onclick="app.selectMode('maintenance')" role="button" tabindex="0" aria-label="Select maintenance mode">
+                                <div class="transform-3d-item">
+                                    <div class="card-front">
+                                        <i class="fas fa-gear fa-3x mb-3 flip-icon" aria-hidden="true"></i>
+                                        <h3>Maintenance</h3>
+                                        <p>Maintain your physique with balanced training</p>
+                                    </div>
+                                    <div class="card-back" aria-hidden="true">
+                                        <h4 class="title">Maintenance Mode</h4>
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> TDEE calories</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> Balanced training</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> 2.0g protein/kg</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                        <!-- Cutting Mode Card -->
+                        <div class="col-md-4">
+                            <article class="mode-card transform-3d-parent" onclick="app.selectMode('cutting')" role="button" tabindex="0" aria-label="Select cutting mode">
+                                <div class="transform-3d-item">
+                                    <div class="card-front">
+                                        <i class="fas fa-scissors fa-3x mb-3 flip-icon" aria-hidden="true"></i>
+                                        <h3>Cutting</h3>
+                                        <p>Shed fat while preserving lean muscle mass</p>
+                                    </div>
+                                    <div class="card-back" aria-hidden="true">
+                                        <h4 class="title">Cutting Mode</h4>
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> -500 calorie deficit</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> HIIT cardio</li>
+                                            <li><i class="fas fa-check" aria-hidden="true"></i> 2.5g protein/kg</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="container my-5 py-5" aria-label="Features">
+            <h2 class="text-center mb-5 display-4">Why Choose FitTrack Pro?</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <article class="feature-card text-center h-100">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-chart-line fa-3x" aria-hidden="true"></i>
+                        </div>
+                        <h4>Track Progress</h4>
+                        <p>Monitor your weight, body fat percentage, and strength gains with interactive charts</p>
+                    </article>
+                </div>
+                <div class="col-md-4">
+                    <article class="feature-card text-center h-100">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-utensils fa-3x" aria-hidden="true"></i>
+                        </div>
+                        <h4>Nutrition Planning</h4>
+                        <p>Calculate macros, plan meals, and track calories with our comprehensive nutrition tools</p>
+                    </article>
+                </div>
+                <div class="col-md-4">
+                    <article class="feature-card text-center h-100">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-dumbbell fa-3x" aria-hidden="true"></i>
+                        </div>
+                        <h4>Workout Programs</h4>
+                        <p>Access professional workout programs tailored to your fitness goals and experience level</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Daily Quote Section -->
+        <section class="container my-5" aria-label="Daily motivation">
+            <div class="quote-section fade-in">
+                <h2 class="mb-3 display-5">
+                    <i class="fas fa-quote-left" aria-hidden="true"></i> Daily Motivation
+                </h2>
+                <blockquote>
+                    <p class="h4" id="dailyQuote">Loading your daily inspiration...</p>
+                    <footer class="blockquote-footer mt-2">
+                        <cite id="quoteAuthor"></cite>
+                    </footer>
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- Quick Stats Section -->
+        <section class="stats-section py-5" aria-label="Quick statistics">
+            <div class="container">
+                <h2 class="text-center mb-5 display-4">Your Quick Stats</h2>
+                <div class="row g-4">
+                    <div class="col-md-3">
+                        <article class="stat-card text-center h-100">
+                            <i class="fas fa-fire fa-2x mb-2" aria-hidden="true"></i>
+                            <h3 class="counter" data-target="2450" aria-label="Calories consumed today">0</h3>
+                            <p>Calories Today</p>
+                        </article>
+                    </div>
+                    <div class="col-md-3">
+                        <article class="stat-card text-center h-100">
+                            <i class="fas fa-weight fa-2x mb-2" aria-hidden="true"></i>
+                            <h3 class="counter" data-target="79" aria-label="Current weight in kilograms">0</h3>
+                            <p>Current Weight (kg)</p>
+                        </article>
+                    </div>
+                    <div class="col-md-3">
+                        <article class="stat-card text-center h-100">
+                            <i class="fas fa-trophy fa-2x mb-2" aria-hidden="true"></i>
+                            <h3 class="counter" data-target="24" aria-label="Total workouts completed">0</h3>
+                            <p>Workouts Completed</p>
+                        </article>
+                    </div>
+                    <div class="col-md-3">
+                        <article class="stat-card text-center h-100">
+                            <i class="fas fa-bullseye fa-2x mb-2" aria-hidden="true"></i>
+                            <h3 class="counter" data-target="85" aria-label="Percentage of goal achieved">0</h3>
+                            <p>Goal Progress (%)</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section py-5 my-5" aria-label="Call to action">
+            <div class="container text-center">
+                <h2 class="display-4 mb-4">Ready to Transform?</h2>
+                <p class="lead mb-4">Start your fitness journey today with FitTrack Pro</p>
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    <a href="progress.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-chart-line me-2" aria-hidden="true"></i> Track Progress
+                    </a>
+                    <a href="nutrition.html" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-utensils me-2" aria-hidden="true"></i> Plan Nutrition
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5><i class="fas fa-dumbbell" aria-hidden="true"></i> FitTrack Pro</h5>
+                    <p>Your ultimate companion for bodybuilding success</p>
+                    <div class="social-links" role="navigation" aria-label="Social media links">
+                        <a href="#" aria-label="Facebook" rel="noopener noreferrer"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="Twitter" rel="noopener noreferrer"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="Instagram" rel="noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="YouTube" rel="noopener noreferrer"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <nav aria-label="Footer navigation">
+                        <ul class="list-unstyled">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="progress.html">Progress Tracking</a></li>
+                            <li><a href="nutrition.html">Nutrition Planning</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Info</h5>
+                    <address>
+                        <p><i class="fas fa-user" aria-hidden="true"></i> Fakhoury Elias Nassif</p>
+                        <p><i class="fas fa-university" aria-hidden="true"></i> Lebanese University - Faculty of Engineering</p>
+                        <p><i class="fas fa-calendar" aria-hidden="true"></i> Due: July 1, 2025</p>
+                    </address>
+                </div>
+            </div>
+            <hr class="mt-4">
+            <div class="text-center">
+                <p>&copy; 2025 FitTrack Pro. All rights reserved. | Full Stack Development Project</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" aria-live="polite" aria-atomic="true">
+        <div id="liveToast" class="toast" role="alert">
+            <div class="toast-header">
+                <i class="fas fa-bell me-2" aria-hidden="true"></i>
+                <strong class="me-auto">FitTrack Pro</strong>
+                <small>Just now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <!-- Toast message will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/app.js" defer></script>
+</body>
+</html>

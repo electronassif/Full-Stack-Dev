@@ -1,0 +1,50 @@
+{
+  "name": "fittrack-pro",
+  "version": "1.0.0",
+  "description": "Professional fitness tracking web application for serious bodybuilders",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8080",
+    "dev": "npx http-server -p 8080 -c-1",
+    "test": "echo \"No tests configured\" && exit 0",
+    "build": "echo \"No build process required for static site\" && exit 0"
+  },
+  "keywords": [
+    "fitness",
+    "bodybuilding",
+    "workout-tracker",
+    "nutrition",
+    "progress-tracking",
+    "pwa",
+    "es6",
+    "bootstrap5"
+  ],
+  "author": "Fakhoury Elias Nassif",
+  "license": "Academic",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/fittrack-pro.git"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.0",
+    "chart.js": "^4.4.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "not dead"
+  ],
+  "project": {
+    "institution": "Lebanese University - Faculty of Engineering",
+    "course": "Full Stack Development",
+    "instructor": "Eng. Elias Al Zaghrini",
+    "dueDate": "2025-07-01",
+    "customRequirement": "Timeline section using Flexbox"
+  }
+}

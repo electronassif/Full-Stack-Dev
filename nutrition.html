@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plan your nutrition with FitTrack Pro - Calculate macros, search foods, and create meal plans">
+    <meta name="keywords" content="nutrition planning, macro calculator, meal planning, calorie tracking">
+    <meta name="author" content="Fakhoury Elias Nassif">
+    <meta name="theme-color" content="#FF6B6B">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Nutrition Planning - FitTrack Pro">
+    <meta property="og:description" content="Calculate macros, plan meals, and track calories with our comprehensive nutrition tools">
+    <meta property="og:type" content="website">
+    
+    <title>Nutrition Planning - FitTrack Pro</title>
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="spinner-container" id="loadingSpinner" role="status" aria-label="Loading">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation Bar (Sticky) -->
+    <nav class="navbar navbar-expand-lg navbar-dark" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a class="navbar-brand" href="index.html" aria-label="FitTrack Pro Home">
+                <i class="fas fa-dumbbell" aria-hidden="true"></i> FitTrack Pro
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home" aria-hidden="true"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="progress.html">
+                            <i class="fas fa-chart-line" aria-hidden="true"></i> Progress
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="nutrition.html" aria-current="page">
+                            <i class="fas fa-utensils" aria-hidden="true"></i> Nutrition
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light ms-2" id="darkModeToggle" aria-label="Toggle dark mode" onclick="FitnessTrackerApp.toggleDarkModeStatic()">
+                            <i class="fas fa-moon" aria-hidden="true"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Page Header -->
+        <header class="page-header">
+            <div class="container">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Nutrition Planning</li>
+                    </ol>
+                </nav>
+                <h1 class="display-4 animate-title">Nutrition & Meal Planning</h1>
+                <p class="lead animate-subtitle">Fuel your body for optimal performance</p>
+            </div>
+        </header>
+
+        <!-- Main Content Container -->
+        <div class="container my-5">
+            <!-- Calorie Tracker -->
+            <section class="calorie-tracker mb-5" aria-label="Daily calorie tracker">
+                <h3><i class="fas fa-fire" aria-hidden="true"></i> Today's Calorie Goal</h3>
+                <div class="calorie-progress" role="progressbar" aria-label="Calorie progress" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
+                    <div class="calorie-bar" id="calorieBar" style="width: 0%;">
+                        1,950 / 3,000 kcal
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-4 text-center">
+                        <div class="macro-stat">
+                            <h5>150g</h5>
+                            <small>Protein</small>
+                        </div>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div class="macro-stat">
+                            <h5>300g</h5>
+                            <small>Carbs</small>
+                        </div>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div class="macro-stat">
+                            <h5>83g</h5>
+                            <small>Fat</small>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tabs Navigation -->
+            <ul class="nav nav-tabs custom-tabs mb-4" id="nutritionTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="calculator-tab" data-bs-toggle="tab" data-bs-target="#calculator" type="button" role="tab" aria-controls="calculator" aria-selected="true">
+                        <i class="fas fa-calculator" aria-hidden="true"></i> Macro Calculator
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="search-tab" data-bs-toggle="tab" data-bs-target="#search" type="button" role="tab" aria-controls="search" aria-selected="false">
+                        <i class="fas fa-search" aria-hidden="true"></i> Food Search
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="planner-tab" data-bs-toggle="tab" data-bs-target="#planner" type="button" role="tab" aria-controls="planner" aria-selected="false">
+                        <i class="fas fa-calendar-alt" aria-hidden="true"></i> Meal Planner
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="recipes-tab" data-bs-toggle="tab" data-bs-target="#recipes" type="button" role="tab" aria-controls="recipes" aria-selected="false">
+                        <i class="fas fa-book" aria-hidden="true"></i> Recipes
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="nutritionTabContent">
+                <!-- Macro Calculator Tab -->
+                <div class="tab-pane fade show active" id="calculator" role="tabpanel" aria-labelledby="calculator-tab">
+                    <section class="custom-form" aria-label="Macro calculator">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4><i class="fas fa-calculator" aria-hidden="true"></i> Calculate Your Macros</h4>
+                                <form id="macroForm" novalidate>
+                                    <div class="mb-3">
+                                        <label for="weight" class="form-label">Weight (kg)</label>
+                                        <input type="number" class="form-control" id="weight" min="30" max="300" step="0.1" required aria-describedby="weightHelp">
+                                        <div id="weightHelp" class="form-text">Enter your body weight in kilograms</div>
+                                        <div class="invalid-feedback">Please enter a valid weight between 30-300 kg</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="height" class="form-label">Height (cm)</label>
+                                        <input type="number" class="form-control" id="height" min="100" max="250" step="1" required aria-describedby="heightHelp">
+                                        <div id="heightHelp" class="form-text">Enter your height in centimeters</div>
+                                        <div class="invalid-feedback">Please enter a valid height between 100-250 cm</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="age" class="form-label">Age</label>
+                                        <input type="number" class="form-control" id="age" min="10" max="100" step="1" required>
+                                        <div class="invalid-feedback">Please enter a valid age between 10-100</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="gender" class="form-label">Gender</label>
+                                        <select class="form-select" id="gender" required>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="activity" class="form-label">Activity Level</label>
+                                        <select class="form-select" id="activity" required aria-describedby="activityHelp">
+                                            <option value="sedentary">Sedentary (little/no exercise)</option>
+                                            <option value="light">Light Activity (1-3 days/week)</option>
+                                            <option value="moderate" selected>Moderate Activity (3-5 days/week)</option>
+                                            <option value="active">Very Active (6-7 days/week)</option>
+                                            <option value="veryActive">Extra Active (physical job)</option>
+                                        </select>
+                                        <div id="activityHelp" class="form-text">Select your average weekly activity level</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="goal" class="form-label">Goal</label>
+                                        <select class="form-select" id="goal" required>
+                                            <option value="bulking">Bulking (+500 cal)</option>
+                                            <option value="cutting">Cutting (-500 cal)</option>
+                                            <option value="maintenance" selected>Maintenance</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-chart-pie" aria-hidden="true"></i> Calculate Macros
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <div id="macroResults" style="display: none;" aria-live="polite">
+                                    <h4><i class="fas fa-chart-bar" aria-hidden="true"></i> Your Daily Macros</h4>
+                                    <div class="macro-results-card">
+                                        <div class="macro-result-item">
+                                            <i class="fas fa-fire fa-2x" aria-hidden="true"></i>
+                                            <div>
+                                                <strong>Calories</strong>
+                                                <h3 id="calories">0</h3>
+                                            </div>
+                                        </div>
+                                        <div class="macro-result-item">
+                                            <i class="fas fa-drumstick-bite fa-2x" aria-hidden="true"></i>
+                                            <div>
+                                                <strong>Protein</strong>
+                                                <h3><span id="protein">0</span>g</h3>
+                                            </div>
+                                        </div>
+                                        <div class="macro-result-item">
+                                            <i class="fas fa-bread-slice fa-2x" aria-hidden="true"></i>
+                                            <div>
+                                                <strong>Carbs</strong>
+                                                <h3><span id="carbs">0</span>g</h3>
+                                            </div>
+                                        </div>
+                                        <div class="macro-result-item">
+                                            <i class="fas fa-cheese fa-2x" aria-hidden="true"></i>
+                                            <div>
+                                                <strong>Fat</strong>
+                                                <h3><span id="fat">0</span>g</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <canvas id="macroChart" width="400" height="200" role="img" aria-label="Macro distribution chart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Food Search Tab -->
+                <div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">
+                    <section class="food-search" aria-label="Food search">
+                        <h3 class="mb-4"><i class="fas fa-search" aria-hidden="true"></i> Search Foods</h3>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="foodSearchInput" placeholder="Search for foods..." aria-label="Search for foods" aria-describedby="searchHelp">
+                            <button class="btn btn-primary" type="button" onclick="nutritionPage.searchFood()" aria-label="Search">
+                                <i class="bi bi-search" aria-hidden="true"></i> Search
+                            </button>
+                        </div>
+                        <div id="searchHelp" class="form-text mb-3">Enter at least 3 characters to search</div>
+                        <div id="searchResults" class="search-results" role="list" aria-live="polite" aria-label="Search results">
+                            <!-- Search results will appear here -->
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Meal Planner Tab -->
+                <div class="tab-pane fade" id="planner" role="tabpanel" aria-labelledby="planner-tab">
+                    <section class="meal-planner" aria-label="Weekly meal planner">
+                        <h3 class="text-center mb-4"><i class="fas fa-calendar-week" aria-hidden="true"></i> Weekly Meal Plan</h3>
+                        <div class="day-selector" role="tablist" aria-label="Days of the week">
+                            <button class="day-btn active" onclick="nutritionPage.selectDay('Monday')" role="tab" aria-selected="true" aria-controls="mealPlan">Mon</button>
+                            <button class="day-btn" onclick="nutritionPage.selectDay('Tuesday')" role="tab" aria-selected="false" aria-controls="mealPlan">Tue</button>
+                            <button class="day-btn" onclick="nutritionPage.selectDay('Wednesday')" role="tab" aria-selected="false" aria-controls="mealPlan">Wed</button>
+                            <button class="day-btn" onclick="nutritionPage.selectDay('Thursday')" role="tab" aria-selected="false" aria-controls="mealPlan">Thu</button>
+                            <button class="day-btn" onclick="nutritionPage.selectDay('Friday')" role="tab" aria-selected="false" aria-controls="mealPlan">Fri</button>
+                            <button class="day-btn" onclick="nutritionPage.selectDay('Saturday')" role="tab" aria-selected="false" aria-controls="mealPlan">Sat</button>
+                            <button class="day-btn" onclick="nutritionPage.selectDay('Sunday')" role="tab" aria-selected="false" aria-controls="mealPlan">Sun</button>
+                        </div>
+
+                        <div id="mealPlan" role="tabpanel" aria-live="polite">
+                            <!-- Meal plan content will be loaded here -->
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button class="btn btn-secondary" onclick="nutritionPage.saveMealPlan()" aria-label="Save current meal plan">
+                                <i class="fas fa-save" aria-hidden="true"></i> Save Meal Plan
+                            </button>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Recipes Tab -->
+                <div class="tab-pane fade" id="recipes" role="tabpanel" aria-labelledby="recipes-tab">
+                    <section aria-label="High-protein recipes">
+                        <h3 class="text-center mb-5"><i class="fas fa-book-open" aria-hidden="true"></i> High-Protein Recipes</h3>
+                        <div class="row" id="recipeSection" role="list">
+                            <!-- Recipes will be loaded here -->
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5><i class="fas fa-dumbbell" aria-hidden="true"></i> FitTrack Pro</h5>
+                    <p>Your ultimate companion for bodybuilding success</p>
+                    <div class="social-links" role="navigation" aria-label="Social media links">
+                        <a href="#" aria-label="Facebook" rel="noopener noreferrer"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="Twitter" rel="noopener noreferrer"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="Instagram" rel="noopener noreferrer"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="YouTube" rel="noopener noreferrer"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <nav aria-label="Footer navigation">
+                        <ul class="list-unstyled">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="progress.html">Progress Tracking</a></li>
+                            <li><a href="nutrition.html">Nutrition Planning</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Info</h5>
+                    <address>
+                        <p><i class="fas fa-user" aria-hidden="true"></i> Fakhoury Elias Nassif</p>
+                        <p><i class="fas fa-university" aria-hidden="true"></i> Lebanese University - Faculty of Engineering</p>
+                        <p><i class="fas fa-calendar" aria-hidden="true"></i> Due: July 1, 2025</p>
+                    </address>
+                </div>
+            </div>
+            <hr class="mt-4">
+            <div class="text-center">
+                <p>&copy; 2025 FitTrack Pro. All rights reserved. | Full Stack Development Project</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" aria-live="polite" aria-atomic="true">
+        <div id="liveToast" class="toast" role="alert">
+            <div class="toast-header">
+                <i class="fas fa-bell me-2" aria-hidden="true"></i>
+                <strong class="me-auto">FitTrack Pro</strong>
+                <small>Just now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <!-- Toast message will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/app.js" defer></script>
+</body>
+</html>

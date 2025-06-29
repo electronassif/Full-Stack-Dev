@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Favicon Generator</title>
+</head>
+<body>
+    <h1>FitTrack Pro Favicon Generator</h1>
+    <p>This page helps generate the favicon.ico file from the SVG.</p>
+    <canvas id="faviconCanvas" width="32" height="32" style="border: 1px solid #ccc;"></canvas>
+    <br><br>
+    <button onclick="generateFavicon()">Generate Favicon</button>
+    <a id="downloadLink" style="display: none;">Download ICO</a>
+    
+    <script>
+        function generateFavicon() {
+            const canvas = document.getElementById('faviconCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Create gradient background
+            const gradient = ctx.createLinearGradient(0, 0, 32, 32);
+            gradient.addColorStop(0, '#FF6B6B');
+            gradient.addColorStop(1, '#4ECDC4');
+            
+            // Draw background circle
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(16, 16, 15, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Draw dumbbell
+            ctx.fillStyle = 'white';
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 0.5;
+            
+            // Left weight
+            ctx.beginPath();
+            ctx.arc(8, 16, 3, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Right weight
+            ctx.beginPath();
+            ctx.arc(24, 16, 3, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Bar
+            ctx.fillRect(11, 15, 10, 2);
+            
+            // Chart line
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(6, 22);
+            ctx.lineTo(10, 18);
+            ctx.lineTo(14, 20);
+            ctx.lineTo(18, 16);
+            ctx.lineTo(22, 14);
+            ctx.lineTo(26, 12);
+            ctx.stroke();
+            
+            // Chart dots
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(10, 18, 1, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(14, 20, 1, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(18, 16, 1, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(22, 14, 1, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(26, 12, 1, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Create download link
+            const link = document.getElementById('downloadLink');
+            link.href = canvas.toDataURL('image/png');
+            link.download = 'favicon.png';
+            link.style.display = 'inline';
+            link.textContent = 'Download PNG Favicon';
+        }
+        
+        // Auto-generate on load
+        window.onload = generateFavicon;
+    </script>
+</body>
+</html> 

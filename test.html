@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    
+    <title>FitTrack Pro - Test Page</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>FitTrack Pro - Functionality Test</h1>
+        
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Test Results</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="testResults">
+                            <p>Running tests...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Quick Actions</h5>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-primary mb-2" onclick="testCharts()">Test Charts</button><br>
+                        <button class="btn btn-success mb-2" onclick="testWorkouts()">Test Workouts</button><br>
+                        <button class="btn btn-info mb-2" onclick="testNutrition()">Test Nutrition</button><br>
+                        <button class="btn btn-warning mb-2" onclick="testTimeline()">Test Timeline</button>
+                        <button class="btn btn-dark mb-2" onclick="testDarkMode()">Test Dark Mode</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Custom JS -->
+    <script src="css/js/app.js"></script>
+    <script src="css/js/exerciseManager.js"></script>
+
+    <script>
+        function testCharts() {
+            const results = document.getElementById('testResults');
+            results.innerHTML = '<p>Testing Charts...</p>';
+            
+            if (typeof Chart !== 'undefined') {
+                results.innerHTML += '<p class="text-success">✓ Chart.js loaded successfully</p>';
+                
+                // Test chart creation
+                const canvas = document.createElement('canvas');
+                canvas.id = 'testChart';
+                document.body.appendChild(canvas);
+                
+                try {
+                    new Chart(canvas, {
+                        type: 'line',
+                        data: {
+                            labels: ['Test 1', 'Test 2', 'Test 3'],
+                            datasets: [{
+                                label: 'Test Data',
+                                data: [1, 2, 3],
+                                borderColor: '#FF6B6B'
+                            }]
+                        }
+                    });
+                    results.innerHTML += '<p class="text-success">✓ Chart creation successful</p>';
+                } catch (error) {
+                    results.innerHTML += '<p class="text-danger">✗ Chart creation failed: ' + error.message + '</p>';
+                }
+                
+                document.body.removeChild(canvas);
+            } else {
+                results.innerHTML += '<p class="text-danger">✗ Chart.js not loaded</p>';
+            }
+        }
+
+        function testWorkouts() {
+            const results = document.getElementById('testResults');
+            results.innerHTML = '<p>Testing Workouts...</p>';
+            
+            if (typeof WorkoutPage !== 'undefined') {
+                results.innerHTML += '<p class="text-success">✓ WorkoutPage class available</p>';
+                
+                if (window.workoutPage) {
+                    results.innerHTML += '<p class="text-success">✓ WorkoutPage instance available</p>';
+                } else {
+                    results.innerHTML += '<p class="text-warning">⚠ WorkoutPage instance not created</p>';
+                }
+            } else {
+                results.innerHTML += '<p class="text-danger">✗ WorkoutPage class not available</p>';
+            }
+        }
+
+        function testNutrition() {
+            const results = document.getElementById('testResults');
+            results.innerHTML = '<p>Testing Nutrition...</p>';
+            
+            if (typeof NutritionPage !== 'undefined') {
+                results.innerHTML += '<p class="text-success">✓ NutritionPage class available</p>';
+                
+                if (window.nutritionPage) {
+                    results.innerHTML += '<p class="text-success">✓ NutritionPage instance available</p>';
+                } else {
+                    results.innerHTML += '<p class="text-warning">⚠ NutritionPage instance not created</p>';
+                }
+            } else {
+                results.innerHTML += '<p class="text-danger">✗ NutritionPage class not available</p>';
+            }
+        }
+
+        function testTimeline() {
+            const results = document.getElementById('testResults');
+            results.innerHTML = '<p>Testing Timeline...</p>';
+            
+            if (typeof TimelineManager !== 'undefined') {
+                results.innerHTML += '<p class="text-success">✓ TimelineManager class available</p>';
+                
+                if (window.timelineManager) {
+                    results.innerHTML += '<p class="text-success">✓ TimelineManager instance available</p>';
+                } else {
+                    results.innerHTML += '<p class="text-warning">⚠ TimelineManager instance not created</p>';
+                }
+            } else {
+                results.innerHTML += '<p class="text-danger">✗ TimelineManager class not available</p>';
+            }
+        }
+
+        function testDarkMode() {
+            const results = document.getElementById('testResults');
+            results.innerHTML = '<p>Testing Dark Mode...</p>';
+            
+            if (typeof FitnessTrackerApp !== 'undefined') {
+                results.innerHTML += '<p class="text-success">✓ FitnessTrackerApp class available</p>';
+                
+                if (typeof FitnessTrackerApp.toggleDarkModeStatic === 'function') {
+                    results.innerHTML += '<p class="text-success">✓ toggleDarkModeStatic method available</p>';
+                    
+                    // Test the toggle
+                    const wasDark = document.body.classList.contains('dark-mode');
+                    FitnessTrackerApp.toggleDarkModeStatic();
+                    const isDark = document.body.classList.contains('dark-mode');
+                    
+                    if (wasDark !== isDark) {
+                        results.innerHTML += '<p class="text-success">✓ Dark mode toggle working!</p>';
+                    } else {
+                        results.innerHTML += '<p class="text-danger">✗ Dark mode toggle not working</p>';
+                    }
+                } else {
+                    results.innerHTML += '<p class="text-danger">✗ toggleDarkModeStatic method not available</p>';
+                }
+            } else {
+                results.innerHTML += '<p class="text-danger">✗ FitnessTrackerApp class not available</p>';
+            }
+        }
+
+        // Run initial tests when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const results = document.getElementById('testResults');
+            results.innerHTML = '<p>Running initial tests...</p>';
+            
+            // Test basic functionality
+            if (typeof app !== 'undefined') {
+                results.innerHTML += '<p class="text-success">✓ Main app initialized</p>';
+            } else {
+                results.innerHTML += '<p class="text-danger">✗ Main app not initialized</p>';
+            }
+            
+            if (typeof Chart !== 'undefined') {
+                results.innerHTML += '<p class="text-success">✓ Chart.js available</p>';
+            } else {
+                results.innerHTML += '<p class="text-danger">✗ Chart.js not available</p>';
+            }
+            
+            results.innerHTML += '<p class="text-info">Click the buttons above to run specific tests.</p>';
+        });
+    </script>
+</body>
+</html> 
