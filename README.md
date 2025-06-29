@@ -59,7 +59,7 @@ A professional fitness tracking web application designed for serious bodybuilder
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/electronassif/fittrack-pro.git
+git clone https://github.com/electronassif/full-stack-dev.git
 cd fittrack-pro
 ```
 
